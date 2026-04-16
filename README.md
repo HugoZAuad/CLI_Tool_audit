@@ -27,9 +27,7 @@ Este toolkit foi criado para resolver um problema comum:
 
 ## 🎥 Demonstração
 
-> ⚠️ Substitua pelo seu GIF depois
-
-![CLI Demo](./docs/demo.gif)
+![CLI Demo](./docs/cli-demo.gif)
 
 ---
 
