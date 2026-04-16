@@ -1,11 +1,7 @@
-# --- Pastas Solicitadas ---
-.security-reports/
-.github/
+# --- Segurança e ambiente ---
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
 
 # --- Dependências ---
 node_modules/
@@ -13,42 +9,56 @@ jspm_packages/
 .pnp
 .pnp.js
 
-# --- Builds e Saídas ---
+# --- Build ---
 dist/
 build/
 out/
 target/
+*.tsbuildinfo
+
+# --- Binários ---
 *.exe
 *.dll
 *.so
 *.dylib
 
-# --- Logs e Runtime ---
-logs
+# --- Logs ---
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+
+# --- Runtime ---
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# --- Segurança e Chaves (Proteção Adicional) ---
-*.pem
-*.key
-*.pub
-*.cert
-*.pfx
-*.crt
-# Ignorar arquivos do Terraform que podem conter segredos
-.terraform/
-*.tfstate
-*.tfstate.backup
+# --- Relatórios ---
+.security-reports/
 
-# --- IDEs e Editores ---
+# --- Testes ---
+coverage/
+.nyc_output/
+.jest/
+.vitest
+
+# --- Cache ---
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache
+.next/
+.nuxt/
+
+# --- npm ---
+.npm
+*.tgz
+
+# --- IDE ---
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -57,15 +67,15 @@ pids
 .DS_Store
 Thumbs.db
 
-# --- Ferramentas de Teste e Cobertura ---
-coverage/
-.nyc_output/
-.jest/
+# --- Segurança (chaves) ---
+*.pem
+*.key
+*.pub
+*.cert
+*.pfx
+*.crt
 
-# --- Cache de Ferramentas ---
-.eslintcache
-.stylelintcache
-.cache/
-.parcel-cache
-.next/
-.nuxt/
+# --- Terraform ---
+.terraform/
+*.tfstate
+*.tfstate.backup
