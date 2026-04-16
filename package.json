@@ -34,11 +34,11 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/HugoZAuad/CLI_Tool_audit"
   },
-  "homepage": "",
+  "homepage": "https://github.com/HugoZAuad/CLI_Tool_audit/blob/main/README.md",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/HugoZAuad/CLI_Tool_audit/issues"
   },
   "keywords": [
     "security",
