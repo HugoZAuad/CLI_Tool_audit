@@ -13,9 +13,6 @@ vi.mock('node:fs', () => ({
   }
 }));
 
-vi.mock('../src/scan.js', () => ({
-  buildScanMarkdown: vi.fn(() => '# Scan Markdown')
-}));
 
 describe('cli.ts', () => {
   beforeEach(() => {
@@ -38,35 +35,35 @@ describe('cli.ts', () => {
 
   it('parseCliCommand interpreta os comandos corretamente', async () => {
     const { parseCliCommand } = await import('../src/cli.js');
-      it('buildScanSummaryMarkdown gera conteúdo com findings', async () => {
-        const { buildScanSummaryMarkdown } = await import('../src/scan.js');
 
-        const markdown = buildScanSummaryMarkdown(
-          [
-            {
-              arquivo: 'src/index.ts',
-              linha: 12,
-              trecho: 'eval("x")',
-              tipo: 'Uso de eval',
-              risco: 'Execução arbitrária de código',
-              correcao: 'Evite usar eval, utilize funções seguras.'
-            }
-          ],
-          new Date('2026-04-16T10:00:00.000Z')
-        );
+    expect(parseCliCommand(['node', 'cli.js', 'deps-audit'])).toBe('deps-audit');
+    expect(parseCliCommand(['node', 'cli.js', 'code-scan'])).toBe('code-scan');
+    expect(parseCliCommand(['node', 'cli.js', 'full-check'])).toBe('full-check');
+    expect(parseCliCommand(['node', 'cli.js', 'help'])).toBe('help');
+    expect(parseCliCommand(['node', 'cli.js'])).toBe(null);
+  });
 
-        expect(markdown).toContain('src/index.ts');
-        expect(markdown).toContain('Uso de eval');
-        expect(markdown).toContain('Execução arbitrária de código');
-        expect(markdown).toContain('Evite usar eval');
-        expect(markdown).toContain('2026-04-16T10:00:00.000Z');
-      });
+  it('buildScanSummaryMarkdown gera conteúdo com findings', async () => {
+    const { buildScanSummaryMarkdown } = await import('../src/scan.js');
+
+    const markdown = buildScanSummaryMarkdown(
+      [
+        {
+          arquivo: 'src/index.ts',
+          linha: 12,
+          trecho: 'eval("x")',
+          tipo: 'Uso de eval',
+          risco: 'Execução arbitrária de código',
+          correcao: 'Evite usar eval, utilize funções seguras.'
+        }
       ],
       new Date('2026-04-16T10:00:00.000Z')
     );
 
-    expect(markdown).toContain('# Relatório de Scan Avançado');
     expect(markdown).toContain('src/index.ts');
     expect(markdown).toContain('Uso de eval');
+    expect(markdown).toContain('Execução arbitrária de código');
+    expect(markdown).toContain('Evite usar eval');
+    expect(markdown).toContain('2026-04-16T10:00:00.000Z');
   });
 });

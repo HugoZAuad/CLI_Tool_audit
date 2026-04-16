@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+const existsSyncMock = vi.fn();
 const readdirSyncMock = vi.fn();
 const statSyncMock = vi.fn();
 const readFileSyncMock = vi.fn();
 
 vi.mock('node:fs', () => ({
   default: {
+    existsSync: existsSyncMock,
     readdirSync: readdirSyncMock,
     statSync: statSyncMock,
     readFileSync: readFileSyncMock
@@ -53,8 +55,7 @@ describe('scan.ts', () => {
 
   it('scanProject encontra padrões de risco no código', async () => {
         // Mock fs.existsSync para garantir que o diretório e arquivo existem
-        const existsSyncOrig = require('fs').existsSync;
-        vi.spyOn(require('fs'), 'existsSync').mockImplementation((file: string) => {
+        existsSyncMock.mockImplementation((file: string) => {
           const normalized = file.replace(/\\/g, '/');
           return normalized === '/repo/src' || normalized === '/repo/src/index.ts';
         });
