@@ -1,21 +1,57 @@
 import { execSync } from 'child_process';
 
-export function auditProject(): Record<string, string> {
-  function run(cmd: string): string {
-    try {
-      return execSync(cmd, { stdio: 'pipe' }).toString();
-    } catch (err) {
-      if (err && typeof err === 'object' && 'stdout' in err) {
-        // @ts-ignore
-        return err.stdout?.toString() || (err as Error).message;
+export type AuditToolResult = {
+  command: string;
+  output: string;
+  success: boolean;
+};
+
+export type AuditResults = Record<string, AuditToolResult>;
+
+function getShell(): string {
+  return process.platform === 'win32' ? 'cmd.exe' : '/bin/sh';
+}
+
+export function runCommand(command: string): AuditToolResult {
+  try {
+    const output = execSync(command, {
+      stdio: 'pipe',
+      encoding: 'utf-8',
+      shell: getShell()
+    });
+
+    return {
+      command,
+      output: output?.trim() || 'Comando executado sem saída.',
+      success: true
+    };
+  } catch (error) {
+    let output = '';
+
+    if (error && typeof error === 'object' && 'stdout' in error) {
+      const stdout = (error as { stdout?: Buffer | string }).stdout;
+      if (stdout) {
+        output = stdout.toString().trim();
       }
-      return (err as Error).message;
     }
+
+    if (!output) {
+      output = error instanceof Error ? error.message : String(error);
+    }
+
+    return {
+      command,
+      output: output || 'Falha ao executar comando.',
+      success: false
+    };
   }
-  const results: Record<string, string> = {};
-  results['npm audit'] = run('npm audit --json');
-  results['npm outdated'] = run('npm outdated || echo "Nenhuma dependência desatualizada"');
-  results['eslint'] = run('npx eslint --ext .ts,.tsx src/ || echo "ESLint encontrou problemas"');
-  results['ts-prune'] = run('npx ts-prune || echo "ts-prune encontrou código morto"');
-  return results;
+}
+
+export function auditProject(): AuditResults {
+  return {
+    'npm audit': runCommand('npm audit --json'),
+    'npm outdated': runCommand('npm outdated'),
+    eslint: runCommand('npx eslint --ext .ts,.tsx,.js,.jsx src/'),
+    'ts-prune': runCommand('npx ts-prune')
+  };
 }
