@@ -1,0 +1,71 @@
+# --- Pastas Solicitadas ---
+.security-reports/
+.github/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- Dependências ---
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# --- Builds e Saídas ---
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# --- Logs e Runtime ---
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# --- Segurança e Chaves (Proteção Adicional) ---
+*.pem
+*.key
+*.pub
+*.cert
+*.pfx
+*.crt
+# Ignorar arquivos do Terraform que podem conter segredos
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# --- IDEs e Editores ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Ferramentas de Teste e Cobertura ---
+coverage/
+.nyc_output/
+.jest/
+
+# --- Cache de Ferramentas ---
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache
+.next/
+.nuxt/

@@ -1,0 +1,47 @@
+{
+  "name": "@hugozauad/security-audit-toolkit",
+  "version": "0.1.0",
+  "description": "Toolkit para auditoria e análise de segurança de projetos Node.js via CLI e como biblioteca.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "security-audit": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest",
+    "audit": "node bin/cli.js audit",
+    "scan": "node bin/cli.js scan"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "security",
+    "audit",
+    "cli",
+    "npm",
+    "typescript"
+  ],
+  "author": "Hugo Zeymer Auad <hugozeymer@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
+    "eslint": "^8.57.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.0",
+    "inquirer": "^13.4.1",
+    "vite": "^8.0.8",
+    "vite-node": "^6.0.0"
+  }
+}
